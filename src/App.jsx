@@ -8,21 +8,6 @@ export default function App() {
   const [showCard, setShowCard] = useState(false);
   const [pausedAtMid, setPausedAtMid] = useState(false);
 
-  // "No" button text changes
-  const [noCount, setNoCount] = useState(0);
-  const noTexts = useMemo(
-    () => [
-      "No",
-      "Really sure?",
-      "Seriously?",
-      "Have a heart!",
-      "You're breaking my heart :(",
-      "Last chance…",
-      "Okay… but why 😭",
-      "Don't do this to me 💔",
-    ],
-    []
-  );
 
   // Confetti state
   const [confettiOn, setConfettiOn] = useState(false);
@@ -52,10 +37,6 @@ export default function App() {
       setPausedAtMid(true);
       setShowCard(true);
     }
-  }
-
-  function handleNo() {
-    setNoCount((c) => c + 1);
   }
 
   async function handleYes() {
@@ -131,8 +112,8 @@ export default function App() {
                   Yes
                 </button>
 
-                <button className="btn no" onClick={handleNo}>
-                  {noTexts[Math.min(noCount, noTexts.length - 1)]}
+                <button className="btn no" type="button">
+                 No
                 </button>
               </div>
             </div>

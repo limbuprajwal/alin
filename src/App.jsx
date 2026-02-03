@@ -20,11 +20,10 @@ export default function App() {
   const [noCount, setNoCount] = useState(0);
   const [accepted, setAccepted] = useState(false);
 
-  // Delay timer for showing the card after video ends
   const delayTimer = useRef(null);
 
-  // grows each time "No" is clicked
-  const yesScale = Math.min(1 + noCount * 0.28, 4);
+  // Button grows on each "No"
+  const yesScale = Math.min(1 + noCount * 0.22, 3.2);
 
   function handleNo() {
     setNoCount((c) => c + 1);
@@ -34,7 +33,6 @@ export default function App() {
     setAccepted(true);
   }
 
-  // Cleanup timeout on unmount (avoids warnings)
   useEffect(() => {
     return () => {
       if (delayTimer.current) clearTimeout(delayTimer.current);
@@ -53,8 +51,7 @@ export default function App() {
             playsInline
             muted
             onEnded={() => {
-              // Delay before showing the card (adjust 500–1200ms)
-              delayTimer.current = setTimeout(() => setShowCard(true), 800);
+              delayTimer.current = setTimeout(() => setShowCard(true), 900);
             }}
           />
         </div>
@@ -65,11 +62,8 @@ export default function App() {
             <div className="card">
               {!accepted ? (
                 <>
-                  <div className="bear" aria-hidden>
-                    🧸💗
-                  </div>
-
-                  <div className="question">Will you be my Valentine?</div>
+                  <div className="title">Prerna, will you be my Valentine?</div>
+                  <div className="subTitle">💗</div>
 
                   <div className="btnRow">
                     <button
@@ -87,11 +81,8 @@ export default function App() {
                 </>
               ) : (
                 <>
-                  <div className="bear" aria-hidden>
-                    🧸💖
-                  </div>
-                  <div className="question big">YAYYY!! 🎉</div>
-                  <div className="sub">Screenshot and send it 😄</div>
+                  <div className="title big">YAYYY Prerna!! 💖</div>
+                  <div className="sub">Now screenshot and send it 😄</div>
                 </>
               )}
             </div>

@@ -4,9 +4,8 @@
     --card: #ffffff;
     --shadow: 0 18px 55px rgba(0, 0, 0, 0.14);
 
-    --yes: #ff4fa3;
-    --no: #ff7aa2;
-    --text: #222;
+    --yes: #ff3f9e;
+    --no: #ff8bb6;
 }
 
 * {
@@ -19,82 +18,63 @@ body,
     height: 100%;
 }
 
-/* IMPORTANT: override any old Vite default styles */
 body {
     margin: 0;
-    display: block !important;
-    place-items: initial !important;
-    min-height: 100vh !important;
-
-    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-    color: var(--text);
     background: linear-gradient(180deg, var(--bgTop), var(--bgBottom));
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
 }
 
-/* make root not constrain things */
-#root {
-    width: 100%;
-}
-
-/* Top aligned layout (looks better on mobile) */
 .page {
     min-height: 100vh;
-    width: 100%;
+    padding: 20px 14px;
     display: flex;
-    justify-content: flex-start;
-    /* not centered vertically */
+    justify-content: center;
     align-items: center;
-    padding: 22px 14px 28px;
 }
 
 .frame {
-    width: min(920px, 96vw);
+    width: min(900px, 96vw);
     display: grid;
-    gap: 14px;
+    gap: 18px;
     justify-items: center;
 }
 
-/* VIDEO */
 .videoWrap {
     width: 100%;
-    border-radius: 18px;
+    border-radius: 20px;
     overflow: hidden;
+    background: #111;
+    aspect-ratio: 16 / 9;
     box-shadow: var(--shadow);
-    background: #000;
-
-    /* keep it nicely sized on phones */
-    max-height: 46vh;
 }
 
 .video {
     width: 100%;
-    display: block;
-    aspect-ratio: 16 / 9;
+    height: 100%;
     object-fit: cover;
 }
 
-/* CARD */
+/* Popup Card */
 .cardSlot {
     width: 100%;
     display: grid;
     place-items: center;
-    padding-bottom: 8px;
 }
 
 .card {
-    width: min(560px, 92vw);
-    background: var(--card);
-    border-radius: 20px;
-    box-shadow: var(--shadow);
-    padding: 18px 18px 16px;
+    width: min(580px, 92vw);
+    border-radius: 26px;
+    padding: 22px;
     text-align: center;
-    animation: fadeUp 220ms ease both;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+    box-shadow: var(--shadow);
+    animation: popupIn 260ms ease both;
 }
 
-@keyframes fadeUp {
+@keyframes popupIn {
     from {
         opacity: 0;
-        transform: translateY(8px) scale(0.99);
+        transform: translateY(10px) scale(0.98);
     }
 
     to {
@@ -104,35 +84,37 @@ body {
 }
 
 .title {
-    font-size: clamp(18px, 2.7vw, 26px);
+    font-size: clamp(20px, 3vw, 28px);
     font-weight: 900;
-    line-height: 1.25;
-    margin: 0 0 10px 0;
+    margin-bottom: 10px;
 }
 
 .mini {
-    font-size: 22px;
-    margin-bottom: 14px;
+    font-size: 26px;
+    margin-bottom: 16px;
 }
 
+/* Buttons */
 .btnRow {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 14px;
-    justify-content: center;
+    max-width: 360px;
+    margin: 0 auto;
     align-items: center;
-    flex-wrap: wrap;
 }
 
 .btn {
-    border: 0;
-    border-radius: 16px;
-    padding: 14px 28px;
+    border: none;
+    border-radius: 18px;
+    padding: 14px;
     font-size: 18px;
     font-weight: 900;
-    cursor: pointer;
-    transition: transform 160ms ease, filter 160ms ease;
     color: #fff;
-    min-width: 120px;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.14);
+    transition: transform 0.25s ease, filter 0.2s ease;
+    transform-origin: center;
 }
 
 .btn:hover {
@@ -144,14 +126,54 @@ body {
 }
 
 .yes {
-    background: var(--yes);
+    background: linear-gradient(135deg, #ff3f9e, #ff79b2);
 }
 
 .no {
-    background: var(--no);
+    background: linear-gradient(135deg, #ff8bb6, #ffb3cf);
 }
 
-/* CONFETTI */
+/* Banner */
+.valentineBanner {
+    position: fixed;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #ff3f9e, #ff79b2);
+    color: white;
+    padding: 18px 28px;
+    border-radius: 28px;
+    text-align: center;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.2);
+    animation: slideDown 400ms ease;
+    z-index: 20;
+}
+
+.bannerLine1 {
+    font-weight: 900;
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.bannerLine2,
+.bannerLine3 {
+    font-size: 15px;
+    opacity: 0.95;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+/* Confetti */
 .confetti {
     position: fixed;
     inset: 0;

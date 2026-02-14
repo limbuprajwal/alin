@@ -10,8 +10,8 @@ export default function App() {
   const [confettiOn, setConfettiOn] = useState(false);
   const [showValentineMsg, setShowValentineMsg] = useState(false);
 
-  // Yes grows when No is clicked
-  const [yesScale, setYesScale] = useState(1);
+  // Track No clicks -> makes Yes bigger
+  const [noCount, setNoCount] = useState(0);
 
   const confettiTimer = useRef(null);
 
@@ -35,7 +35,7 @@ export default function App() {
     const targetTime = 8;
 
     if (!pausedAtMid && v.currentTime >= targetTime) {
-      v.currentTime = targetTime; // snap exactly to 8.000
+      v.currentTime = targetTime;
       v.pause();
       setPausedAtMid(true);
       setShowCard(true);
@@ -43,22 +43,21 @@ export default function App() {
   }
 
   function handleNo() {
-    setYesScale((prev) => {
-      const next = prev + 0.15;
-      return next > 2.2 ? 2.2 : next; // cap max
-    });
+    setNoCount((c) => Math.min(c + 1, 6)); // cap it so it doesn't get crazy
   }
+
+  // scale grows each click, and we also shift right so it covers No
+  const yesScale = Math.min(1 + noCount * 0.28, 2.2); // 2-3 clicks gets big fast
+  const yesShift = Math.min(noCount * 18, 60); // px shift right to "cover" No
 
   async function handleYes() {
     setShowCard(false);
     setShowValentineMsg(true);
 
-    // Confetti burst
     setConfettiOn(true);
     if (confettiTimer.current) clearTimeout(confettiTimer.current);
     confettiTimer.current = setTimeout(() => setConfettiOn(false), 2200);
 
-    // Resume video
     const v = videoRef.current;
     if (v) {
       try {
@@ -67,7 +66,7 @@ export default function App() {
     }
   }
 
-  // Background music (autoplay-safe)
+  // Background music
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -78,7 +77,7 @@ export default function App() {
     const start = async () => {
       try {
         await audio.play();
-        audio.currentTime = 3; // start from 3s
+        audio.currentTime = 3;
         audio.muted = false;
       } catch {
         const resume = async () => {
@@ -152,7 +151,9 @@ export default function App() {
                 <button
                   className="btn yes"
                   onClick={handleYes}
-                  style={{ transform: `scale(${yesScale})` }}
+                  style={{
+                    transform: `translateX(${yesShift}px) scale(${yesScale})`,
+                  }}
                 >
                   Yes
                 </button>

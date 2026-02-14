@@ -1,15 +1,8 @@
-:root {
-    --bgTop: #ffe3ec;
-    --bgBottom: #fff7fb;
-    --card: #ffffff;
-    --shadow: 0 18px 55px rgba(0, 0, 0, 0.14);
-
-    --yes: #ff3f9e;
-    --no: #ff8bb6;
-}
-
+/* ===== Reset ===== */
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html,
@@ -18,200 +11,200 @@ body,
     height: 100%;
 }
 
-body {
-    margin: 0;
-    background: linear-gradient(180deg, var(--bgTop), var(--bgBottom));
-    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-}
-
+/* ===== Page Background ===== */
 .page {
     min-height: 100vh;
-    padding: 20px 14px;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: linear-gradient(180deg, #f8dce5 0%, #f3cbd7 100%);
+    font-family: "Poppins", system-ui, -apple-system, sans-serif;
+    padding: 20px;
 }
 
+/* ===== Main Frame ===== */
 .frame {
-    width: min(900px, 96vw);
-    display: grid;
-    gap: 18px;
-    justify-items: center;
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
 }
 
+/* ===== Video ===== */
 .videoWrap {
     width: 100%;
-    border-radius: 20px;
+    border-radius: 28px;
     overflow: hidden;
-    background: #111;
-    aspect-ratio: 16 / 9;
-    box-shadow: var(--shadow);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
 }
 
 .video {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    display: block;
 }
 
-/* Popup Card */
+/* ===== Card Slot ===== */
 .cardSlot {
     width: 100%;
-    display: grid;
-    place-items: center;
+    display: flex;
+    justify-content: center;
 }
 
+/* ===== Popup Card ===== */
 .card {
-    width: min(580px, 92vw);
+    width: 100%;
+    background: #ffffffcc;
+    backdrop-filter: blur(10px);
     border-radius: 26px;
-    padding: 22px;
+    padding: 28px 22px 32px;
     text-align: center;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
-    box-shadow: var(--shadow);
-    animation: popupIn 260ms ease both;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    animation: fadeUp 0.4s ease;
 }
 
-@keyframes popupIn {
+@keyframes fadeUp {
     from {
         opacity: 0;
-        transform: translateY(10px) scale(0.98);
+        transform: translateY(12px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateY(0);
     }
 }
 
 .title {
-    font-size: clamp(20px, 3vw, 28px);
-    font-weight: 900;
-    margin-bottom: 10px;
+    font-size: 22px;
+    font-weight: 800;
+    color: #222;
+    margin-bottom: 12px;
 }
 
 .mini {
-    font-size: 26px;
-    margin-bottom: 16px;
+    font-size: 24px;
+    margin-bottom: 20px;
 }
 
-/* Buttons */
+/* ===== Buttons Row ===== */
 .btnRow {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    max-width: 360px;
-    margin: 0 auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
     align-items: center;
+    gap: 14px;
+    overflow: visible;
 }
 
+/* ===== Buttons ===== */
 .btn {
+    position: relative;
     border: none;
-    border-radius: 18px;
-    padding: 14px;
+    border-radius: 20px;
+    padding: 14px 26px;
     font-size: 18px;
     font-weight: 900;
-    color: #fff;
+    color: white;
     cursor: pointer;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.14);
+    min-width: 130px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     transition: transform 0.25s ease, filter 0.2s ease;
-    transform-origin: center;
+    transform-origin: left center;
 }
 
 .btn:hover {
-    filter: brightness(1.06);
-}
-
-.btn:active {
-    transform: scale(0.98);
+    filter: brightness(1.05);
 }
 
 .yes {
-    background: linear-gradient(135deg, #ff3f9e, #ff79b2);
+    z-index: 3;
+    background: linear-gradient(135deg, #ff3f9e, #ff6cb5);
 }
 
 .no {
+    z-index: 1;
     background: linear-gradient(135deg, #ff8bb6, #ffb3cf);
 }
 
-/* Banner */
-.valentineBanner {
-    position: fixed;
-    top: 18px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(135deg, #ff3f9e, #ff79b2);
-    color: white;
-    padding: 18px 28px;
-    border-radius: 28px;
-    text-align: center;
-    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.2);
-    animation: slideDown 400ms ease;
-    z-index: 20;
-}
-
-.bannerLine1 {
-    font-weight: 900;
-    font-size: 20px;
-    margin-bottom: 4px;
-}
-
-.bannerLine2,
-.bannerLine3 {
-    font-size: 15px;
-    opacity: 0.95;
-}
-
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translate(-50%, -20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translate(-50%, 0);
-    }
-}
-
-/* Confetti */
+/* ===== Confetti ===== */
 .confetti {
+    pointer-events: none;
     position: fixed;
     inset: 0;
-    pointer-events: none;
     overflow: hidden;
-    z-index: 10;
+    z-index: 999;
 }
 
 .confettiPiece {
     position: absolute;
     top: -10px;
     width: 10px;
-    height: 16px;
-    border-radius: 3px;
-    animation-name: confettiFall;
-    animation-timing-function: ease-in;
-    animation-fill-mode: both;
+    height: 14px;
+    background: #ff4fa3;
+    opacity: 0.9;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh) translateX(var(--drift));
+    }
+}
+
+/* ===== Valentine Banner ===== */
+.valentineBanner {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #ff4fa3, #ff79b2);
+    color: white;
+    padding: 20px 28px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+    z-index: 1000;
+    animation: popIn 0.5s ease;
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+.bannerLine1 {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+
+.bannerLine2,
+.bannerLine3 {
+    font-size: 14px;
     opacity: 0.95;
 }
 
-.confettiPiece:nth-child(3n) {
-    background: #ff4fa3;
-}
-
-.confettiPiece:nth-child(3n+1) {
-    background: #ff7aa2;
-}
-
-.confettiPiece:nth-child(3n+2) {
-    background: #ffd1e1;
-}
-
-@keyframes confettiFall {
-    0% {
-        transform: translateX(0) translateY(0) rotate(0deg);
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 380px) {
+    .title {
+        font-size: 18px;
     }
 
-    100% {
-        transform: translateX(var(--drift)) translateY(110vh) rotate(720deg);
+    .btn {
+        font-size: 16px;
+        padding: 12px 18px;
+    }
+
+    .valentineBanner {
+        padding: 16px 22px;
     }
 }
